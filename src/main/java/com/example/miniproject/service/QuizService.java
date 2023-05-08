@@ -72,7 +72,7 @@ public class QuizService {
         return solvedQuizRepository.selectSolvedQuiz(id);
     }
 
-    // 주관식, OX 문제해결
+    // 문제해결
     @Transactional
     public BasicResponseDto<?> solvingQuiz(Long id, AnswerRequestDto answerRequestDto, User user){
         Quiz quiz = quizRepository.findById(id).orElseThrow(
@@ -115,7 +115,7 @@ public class QuizService {
     @Transactional
     public BasicResponseDto<?> update(Long id, AmendRequestDto amendRequestDto, User user) {
         Quiz quiz = quizRepository.findById(id).orElseThrow(
-                () -> new NullPointerException("해당 퀴즈가 없습니다.")
+                () -> new IllegalArgumentException("해당 퀴즈가 없습니다.")
         );
 
         if(!StringUtils.equals(quiz.getId(), user.getId())) {
